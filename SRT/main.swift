@@ -89,9 +89,9 @@ if 5 == CommandLine.argc {
 let inputSRTBody: SRTBody
 do {
     inputSRTBody = try SRTBody(filePath: inputFilePath)
-} catch {
+} catch SRTTimeParsingError.invalid(let reason) {
     ConsoleLog.error(message: "Read input file error")
-    ConsoleLog.error(message: error.localizedDescription)
+    ConsoleLog.error(message: reason)
     exit(EXIT_SUCCESS)
 }
 
