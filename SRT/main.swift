@@ -41,7 +41,7 @@ struct ConsoleLog {
 
 let usage = """
 
-SRT Version 1.0
+SRT Version 1.1
 
 usage: SRT <infile> <outfile> <offset_ms | duration[03:24:19,456 --> 03:24:31,856]>
            <infile> <outfile> <offset_ms | duration[03:24:19,456 --> 03:24:31,856]> <outfile_separated>
@@ -50,7 +50,7 @@ usage: SRT <infile> <outfile> <offset_ms | duration[03:24:19,456 --> 03:24:31,85
 """
 
 guard 4 == CommandLine.argc || 5 == CommandLine.argc else {
-    ConsoleLog.standard(message: usage)
+    ConsoleLog.info(message: usage)
     exit(EXIT_SUCCESS)
 }
 
