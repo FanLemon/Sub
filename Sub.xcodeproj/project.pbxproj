@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		149CD4392395F72E00322893 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CD4382395F72E00322893 /* main.swift */; };
 		149CD44C23962BCA00322893 /* ARIBDumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 149CD44B23962BCA00322893 /* ARIBDumper.cpp */; };
 		149CD44F23962BF200322893 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 149CD44E23962BF200322893 /* libiconv.tbd */; };
-		31C436DC27686CAC00BC4704 /* SubRip in Frameworks */ = {isa = PBXBuildFile; productRef = 31C436DB27686CAC00BC4704 /* SubRip */; };
+		312A4FDB2768AF0E00D4BF5E /* SubRip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A4FDA2768AF0E00D4BF5E /* SubRip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +40,7 @@
 		149CD44423962BA100322893 /* ARIB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ARIB; sourceTree = BUILT_PRODUCTS_DIR; };
 		149CD44B23962BCA00322893 /* ARIBDumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ARIBDumper.cpp; sourceTree = "<group>"; };
 		149CD44E23962BF200322893 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		312A4FDA2768AF0E00D4BF5E /* SubRip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31C436DC27686CAC00BC4704 /* SubRip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +84,7 @@
 		149CD4372395F72E00322893 /* SRT */ = {
 			isa = PBXGroup;
 			children = (
+				312A4FDA2768AF0E00D4BF5E /* SubRip.swift */,
 				149CD4382395F72E00322893 /* main.swift */,
 			);
 			path = SRT;
@@ -122,7 +123,6 @@
 			);
 			name = SRT;
 			packageProductDependencies = (
-				31C436DB27686CAC00BC4704 /* SubRip */,
 			);
 			productName = SRT;
 			productReference = 149CD4362395F72E00322893 /* SRT */;
@@ -174,7 +174,6 @@
 			);
 			mainGroup = 149CD41F2395F71000322893;
 			packageReferences = (
-				31C436DA27686CAC00BC4704 /* XCRemoteSwiftPackageReference "SubRip" */,
 			);
 			productRefGroup = 149CD4292395F71000322893 /* Products */;
 			projectDirPath = "";
@@ -191,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312A4FDB2768AF0E00D4BF5E /* SubRip.swift in Sources */,
 				149CD4392395F72E00322893 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +329,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VZHQX3K9AE;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -340,6 +341,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VZHQX3K9AE;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -396,25 +398,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		31C436DA27686CAC00BC4704 /* XCRemoteSwiftPackageReference "SubRip" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/FanLemon/SubRip";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		31C436DB27686CAC00BC4704 /* SubRip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31C436DA27686CAC00BC4704 /* XCRemoteSwiftPackageReference "SubRip" */;
-			productName = SubRip;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 149CD4202395F71000322893 /* Project object */;
 }
