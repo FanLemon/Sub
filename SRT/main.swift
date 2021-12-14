@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SubRip
 
 
 
@@ -41,11 +42,12 @@ struct ConsoleLog {
 
 let usage = """
 
-SRT Version 1.1
+SRT Version 1.2
 
-usage: SRT <infile> <outfile> <offset_ms | duration[03:24:19,456 --> 03:24:31,856]>
-           <infile> <outfile> <offset_ms | duration[03:24:19,456 --> 03:24:31,856]> <outfile_separated>
-
+usage: SRT INPUT_FILE OUTPUT_FILE SHIFT_MS
+       SRT INPUT_FILE OUTPUT_FILE hh:mm:ss,mmm --> hh:mm:ss,mmm
+       SRT INPUT_FILE OUTPUT_FILE SHIFT_MS SEPARATED_FILE
+       SRT INPUT_FILE OUTPUT_FILE hh:mm:ss,mmm --> hh:mm:ss,mmm SEPARATED_FILE
 
 """
 
@@ -61,13 +63,12 @@ let offsetMilliseconds: Int
 let offsetMsOrDuration = CommandLine.arguments[3]
 var separatedFilePath: String?
 if offsetMsOrDuration.contains("-->") {
-    do {
-        let duration = try SRTTimeDuration(srtLine: offsetMsOrDuration)
-        offsetMilliseconds = duration.durationMilliseconds
-    } catch SRTTimeParsingError.invalid(let reason) {
-        ConsoleLog.error(message: "Input parameters Offset error: " + reason)
+    guard let duration = TimeDuration(offsetMsOrDuration) else {
+        ConsoleLog.error(message: "Input parameters Offset error: ")
         exit(EXIT_SUCCESS)
     }
+    
+    offsetMilliseconds = duration.milliseconds
 } else {
     guard let ms = Int(offsetMsOrDuration) else {
         ConsoleLog.error(message: "Input parameters Offset can not convert to Int, \(offsetMsOrDuration)")
@@ -86,24 +87,20 @@ if 5 == CommandLine.argc {
 
 
 
-let inputSRTBody: SRTBody
-do {
-    inputSRTBody = try SRTBody(filePath: inputFilePath)
-} catch SRTTimeParsingError.invalid(let reason) {
-    ConsoleLog.error(message: "Read input file error")
-    ConsoleLog.error(message: reason)
+guard let inputSRT = try? SubRip.load(filePath: inputFilePath) else {
+    ConsoleLog.error(message: "Read input file error. [\(inputFilePath)]")
     exit(EXIT_SUCCESS)
 }
 
-
-var shiftedSRTBody = inputSRTBody.offset(milliseconds: offsetMilliseconds)
+var shiftedSRT = inputSRT + offsetMilliseconds
 
 if let sepedPath = separatedFilePath {
-    let (left, right) = shiftedSRTBody.split()
-    shiftedSRTBody = left
+    let divided = shiftedSRT.split()
+    
+    shiftedSRT = divided[0]
     
     do {
-        try right.write(outputPath: sepedPath)
+        try SubRip.write(filePath: sepedPath, subrip: divided[1])
     } catch {
         ConsoleLog.error(message: "Output separeted srt file error")
         ConsoleLog.error(message: error.localizedDescription)
@@ -112,14 +109,14 @@ if let sepedPath = separatedFilePath {
 }
 
 do {
-    try shiftedSRTBody.write(outputPath: outputFilePath)
+    try SubRip.write(filePath: outputFilePath, subrip: shiftedSRT)
 } catch {
     ConsoleLog.error(message: "Output srt file error")
     ConsoleLog.error(message: error.localizedDescription)
     exit(EXIT_SUCCESS)
 }
 
-ConsoleLog.info(message: "Completed. \(shiftedSRTBody.sentencesCount) Sentences.")
+ConsoleLog.info(message: "Completed. \(shiftedSRT.subtitles.count) Subtitles.")
 
 
 
