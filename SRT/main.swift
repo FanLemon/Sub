@@ -42,7 +42,7 @@ struct ConsoleLog {
 
 let usage = """
 
-SRT Version 1.2
+SRT Version 1.2.1
 
 usage: SRT INPUT_FILE OUTPUT_FILE SHIFT_MS
        SRT INPUT_FILE OUTPUT_FILE hh:mm:ss,mmm --> hh:mm:ss,mmm
@@ -68,7 +68,7 @@ if offsetMsOrDuration.contains("-->") {
         exit(EXIT_SUCCESS)
     }
     
-    offsetMilliseconds = duration.milliseconds
+    offsetMilliseconds = (duration.start - duration.end).millisecondsValue
 } else {
     guard let ms = Int(offsetMsOrDuration) else {
         ConsoleLog.error(message: "Input parameters Offset can not convert to Int, \(offsetMsOrDuration)")
